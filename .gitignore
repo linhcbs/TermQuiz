@@ -20,5 +20,6 @@ pnpm-debug.log*
 .DS_Store
 *.local
 .vscode/
+**/term-quiz-app/.vscode/
 .idea/
 *.sw?

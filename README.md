@@ -2,6 +2,8 @@
 
 A distraction-free, terminal-styled multiple choice quiz app built for fast studying. Run it locally in your browser with zero tracking, no accounts, and complete offline support.
 
+👉 **[Live Demo on GitHub Pages](https://linhcbs.github.io/TermQuiz/)**
+
 ![TermQuiz Practice Session](docs/screenshots/quiz-practice.png)
 
 ---
