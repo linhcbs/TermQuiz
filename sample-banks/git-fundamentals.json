@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "sample_git_fundamentals",
+  "title": "[Demo] Git Fundamentals",
+  "description": "Key concepts of version control, branching, and staging with Git.",
+  "createdAt": "2026-01-01T00:00:00.000Z",
+  "updatedAt": "2026-01-01T00:00:00.000Z",
+  "questions": [
+    {
+      "id": "git_q1",
+      "type": "multiple-choice",
+      "text": "Which command creates a new branch and immediately switches to it in modern Git?",
+      "image": null,
+      "options": [
+        { "id": "git_opt_1a", "text": "git switch -c <branch-name>" },
+        { "id": "git_opt_1b", "text": "git branch --new <branch-name>" },
+        { "id": "git_opt_1c", "text": "git create <branch-name>" },
+        { "id": "git_opt_1d", "text": "git commit -b <branch-name>" }
+      ],
+      "correctOptionId": "git_opt_1a",
+      "explanation": "\"git switch -c <name>\" (or legacy \"git checkout -b <name>\") creates and checks out the new branch in one command."
+    },
+    {
+      "id": "git_q2",
+      "type": "multiple-choice",
+      "text": "Where does Git store changes that have been staged with \"git add\"?",
+      "image": null,
+      "options": [
+        { "id": "git_opt_2a", "text": "In the Index (Staging Area)" },
+        { "id": "git_opt_2b", "text": "Directly in the remote repository" },
+        { "id": "git_opt_2c", "text": "In the stash register" },
+        { "id": "git_opt_2d", "text": "In the reflog" }
+      ],
+      "correctOptionId": "git_opt_2a",
+      "explanation": "The Index (also called the Staging Area) holds proposed changes ready for the next commit."
+    },
+    {
+      "id": "git_q3",
+      "type": "multiple-choice",
+      "text": "What is the primary difference between \"git merge\" and \"git rebase\"?",
+      "image": null,
+      "options": [
+        { "id": "git_opt_3a", "text": "Rebase rewrites commit history linearly, while merge preserves original commits with a merge commit" },
+        { "id": "git_opt_3b", "text": "Merge deletes local branches while rebase keeps them" },
+        { "id": "git_opt_3c", "text": "Rebase only works with GitHub remotes" },
+        { "id": "git_opt_3d", "text": "There is no difference between them" }
+      ],
+      "correctOptionId": "git_opt_3a",
+      "explanation": "Rebase replays commits on top of another base tip creating new commit hashes, whereas merge joins branches and retains full branch topology."
+    },
+    {
+      "id": "git_q4",
+      "type": "multiple-choice",
+      "text": "Which command is recommended to discard unstaged working directory changes in a file in modern Git?",
+      "image": null,
+      "options": [
+        { "id": "git_opt_4a", "text": "git restore <file>" },
+        { "id": "git_opt_4b", "text": "git revert <file>" },
+        { "id": "git_opt_4c", "text": "git drop <file>" },
+        { "id": "git_opt_4d", "text": "git reset --soft <file>" }
+      ],
+      "correctOptionId": "git_opt_4a",
+      "explanation": "\"git restore <file>\" discards working directory changes. \"git revert\" creates a new commit to undo an existing commit."
+    }
+  ]
+}

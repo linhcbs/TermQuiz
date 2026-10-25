@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "id": "sample_linux_basics",
+  "title": "[Demo] Linux Terminal Basics",
+  "description": "Essential commands and concepts for navigating the Linux command line.",
+  "createdAt": "2026-01-01T00:00:00.000Z",
+  "updatedAt": "2026-01-01T00:00:00.000Z",
+  "questions": [
+    {
+      "id": "demo_q1",
+      "type": "multiple-choice",
+      "text": "Which command is used to list directory contents including hidden files in Linux?",
+      "image": null,
+      "options": [
+        { "id": "opt_1a", "text": "ls -a" },
+        { "id": "opt_1b", "text": "dir /all" },
+        { "id": "opt_1c", "text": "list --hidden" },
+        { "id": "opt_1d", "text": "show -h" }
+      ],
+      "correctOptionId": "opt_1a",
+      "explanation": "In Linux, the \"-a\" (all) flag for \"ls\" reveals hidden files whose names start with a dot."
+    },
+    {
+      "id": "demo_q2",
+      "type": "multiple-choice",
+      "text": "What does the \"pwd\" command stand for and do?",
+      "image": null,
+      "options": [
+        { "id": "opt_2a", "text": "Print Working Directory: displays current full pathname" },
+        { "id": "opt_2b", "text": "Password: changes current user password" },
+        { "id": "opt_2c", "text": "Process Wait Daemon: inspects background processes" },
+        { "id": "opt_2d", "text": "Path Where Destination: finds installed binary paths" }
+      ],
+      "correctOptionId": "opt_2a",
+      "explanation": "\"pwd\" stands for Print Working Directory and prints the absolute path of the current directory."
+    },
+    {
+      "id": "demo_q3",
+      "type": "multiple-choice",
+      "text": "Which command redirects the standard output of one command as input to another command?",
+      "image": null,
+      "options": [
+        { "id": "opt_3a", "text": "| (pipe)" },
+        { "id": "opt_3b", "text": "> (redirect)" },
+        { "id": "opt_3c", "text": "& (background)" },
+        { "id": "opt_3d", "text": "; (semicolon)" }
+      ],
+      "correctOptionId": "opt_3a",
+      "explanation": "The pipe operator \"|\" connects the stdout of the left command to the stdin of the right command."
+    },
+    {
+      "id": "demo_q4",
+      "type": "multiple-choice",
+      "text": "Which permission octal value grants read, write, and execute permissions to the owner, and read-only to others and group?",
+      "image": null,
+      "options": [
+        { "id": "opt_4a", "text": "744" },
+        { "id": "opt_4b", "text": "755" },
+        { "id": "opt_4c", "text": "644" },
+        { "id": "opt_4d", "text": "777" }
+      ],
+      "correctOptionId": "opt_4a",
+      "explanation": "rwx = 4+2+1 = 7 (owner), r-- = 4 (group), r-- = 4 (others), giving 744. (755 would grant execute to group/others)."
+    },
+    {
+      "id": "demo_q5",
+      "type": "multiple-choice",
+      "text": "Which signal number corresponds to SIGKILL, which cannot be caught or ignored?",
+      "image": null,
+      "options": [
+        { "id": "opt_5a", "text": "Signal 9" },
+        { "id": "opt_5b", "text": "Signal 15 (SIGTERM)" },
+        { "id": "opt_5c", "text": "Signal 2 (SIGINT)" },
+        { "id": "opt_5d", "text": "Signal 1 (SIGHUP)" }
+      ],
+      "correctOptionId": "opt_5a",
+      "explanation": "SIGKILL (kill -9) immediately terminates a process without giving it an opportunity to clean up."
+    },
+    {
+      "id": "demo_q6",
+      "type": "multiple-choice",
+      "text": "Which command searches for patterns of text within files using regular expressions?",
+      "image": null,
+      "options": [
+        { "id": "opt_6a", "text": "grep" },
+        { "id": "opt_6b", "text": "find" },
+        { "id": "opt_6c", "text": "locate" },
+        { "id": "opt_6d", "text": "which" }
+      ],
+      "correctOptionId": "opt_6a",
+      "explanation": "grep (Global Regular Expression Print) searches plain-text data sets for lines matching a pattern."
+    }
+  ]
+}

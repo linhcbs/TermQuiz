@@ -1,0 +1,87 @@
+/* TermQuiz — Terminal Design System
+ * ANSI-inspired color tokens and layout variables
+ */
+
+:root {
+  /* ── Background layers ─────────────────────────────────────── */
+  --bg-desktop:       #0d0d0d;   /* outermost: desktop/body */
+  --bg-window:        #1a1a1a;   /* terminal window chrome */
+  --bg-terminal:      #141414;   /* main terminal content area */
+  --bg-panel:         #1e1e1e;   /* panels, cards */
+  --bg-panel-hover:   #252525;
+  --bg-input:         #0f0f0f;
+  --bg-overlay:       rgba(0, 0, 0, 0.75);
+
+  /* ── Borders ───────────────────────────────────────────────── */
+  --border-dim:       #2e2e2e;
+  --border-normal:    #3a3a3a;
+  --border-bright:    #4e4e4e;
+
+  /* ── ANSI semantic colors ──────────────────────────────────── */
+  --ansi-green:       #50fa7b;   /* success, correct */
+  --ansi-red:         #ff5555;   /* error, incorrect */
+  --ansi-yellow:      #f1fa8c;   /* warning, pending */
+  --ansi-cyan:        #8be9fd;   /* commands, prompts, selected */
+  --ansi-blue:        #61afef;   /* info, navigation (crisp terminal blue) */
+  --ansi-magenta:     #ff79c6;   /* accent, highlight */
+  --ansi-orange:      #ffb86c;   /* secondary accent */
+  --ansi-white:       #f8f8f2;   /* primary content */
+  --ansi-gray:        #b0bac8;   /* muted, secondary (high-contrast silver-gray, WCAG AAA) */
+  --ansi-dim:         #8b97a8;   /* subtle, hints, placeholders, badges (WCAG AA compliant) */
+
+  /* ── Semantic aliases ──────────────────────────────────────── */
+  --color-success:    var(--ansi-green);
+  --color-error:      var(--ansi-red);
+  --color-warn:       var(--ansi-yellow);
+  --color-info:       var(--ansi-cyan);
+  --color-prompt:     var(--ansi-green);
+  --color-accent:     var(--ansi-magenta);
+  --color-text:       var(--ansi-white);
+  --color-muted:      var(--ansi-gray);
+  --color-dim:        var(--ansi-dim);
+
+  /* ── Typography ────────────────────────────────────────────── */
+  --font-mono:        'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
+  --font-sans:        'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  /* ── Spacing scale ─────────────────────────────────────────── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  /* ── Radii ─────────────────────────────────────────────────── */
+  --radius-sm:   3px;
+  --radius-md:   6px;
+  --radius-lg:   10px;
+
+  /* ── Transitions ───────────────────────────────────────────── */
+  --transition-fast:  150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow:  400ms ease;
+
+  /* ── Terminal window chrome ─────────────────────────────────── */
+  --titlebar-height:  38px;
+  --sidebar-width:    220px;
+  --log-height:       160px;
+}
+
+/* ── Scrollbar Styling ─────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-terminal); }
+::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ansi-gray); }
+
+/* ── Reduced motion ────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
