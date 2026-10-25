@@ -225,7 +225,7 @@ function accuracyClass(pct: number): string {
 }
 
 .score-label {
-  font-size: 11px;
+  font-size: 12.5px;
   letter-spacing: 1px;
 }
 
@@ -243,7 +243,7 @@ function accuracyClass(pct: number): string {
   background: currentColor;
 }
 
-.bank-info { font-size: 12px; }
+.bank-info { font-size: 12.5px; }
 
 /* Incorrect section */
 .section-title {
@@ -281,7 +281,7 @@ function accuracyClass(pct: number): string {
 }
 
 .question-prefix {
-  font-size: 12px;
+  font-size: 12.5px;
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -307,14 +307,14 @@ function accuracyClass(pct: number): string {
 }
 
 .answer-badge {
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 700;
   min-width: 90px;
   flex-shrink: 0;
 }
 
 .incorrect-explanation {
-  font-size: 12px;
+  font-size: 12.5px;
   line-height: 1.6;
   border-top: 1px solid var(--border-dim);
   padding-top: var(--space-3);

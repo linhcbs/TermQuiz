@@ -351,7 +351,7 @@ function downloadSampleJson() {
 
 /* ASCII Rules */
 .ascii-rule {
-  font-size: 12px;
+  font-size: 12.5px;
   opacity: 0.25;
   overflow: hidden;
   white-space: nowrap;
@@ -373,7 +373,7 @@ function downloadSampleJson() {
 }
 
 .section-title {
-  font-size: 11px;
+  font-size: 12.5px;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
@@ -421,7 +421,7 @@ function downloadSampleJson() {
 }
 
 .step-desc {
-  font-size: 11px;
+  font-size: 12.5px;
   line-height: 1.5;
 }
 
@@ -436,7 +436,7 @@ function downloadSampleJson() {
 .code-box {
   margin: 0;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 12.5px;
   line-height: 1.65;
   color: var(--color-text);
   white-space: pre-wrap;
@@ -445,7 +445,7 @@ function downloadSampleJson() {
 
 .code-inline {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 12.5px;
   color: var(--ansi-yellow);
   background: rgba(255, 255, 255, 0.05);
   padding: 1px 4px;
@@ -456,7 +456,7 @@ function downloadSampleJson() {
   display: flex;
   flex-direction: column;
   gap: 1px;
-  font-size: 12px;
+  font-size: 12.5px;
 }
 
 .spec-row {
@@ -478,7 +478,7 @@ function downloadSampleJson() {
 }
 
 .spec-type {
-  font-size: 11px;
+  font-size: 12.5px;
 }
 
 .spec-desc {
@@ -489,7 +489,7 @@ function downloadSampleJson() {
 /* Buttons */
 .btn-cli {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 12.5px;
   padding: 3px 10px;
   background: none;
   border: 1px solid var(--border-normal);

@@ -292,7 +292,7 @@ const optionLabels = ['A', 'B', 'C', 'D']
 }
 
 .field-label {
-  font-size: 12px;
+  font-size: 12.5px;
   color: var(--color-muted);
   letter-spacing: 0.5px;
 }
@@ -303,7 +303,7 @@ const optionLabels = ['A', 'B', 'C', 'D']
 }
 
 .field-error-msg {
-  font-size: 12px;
+  font-size: 12.5px;
   color: var(--ansi-red);
 }
 
@@ -327,7 +327,7 @@ const optionLabels = ['A', 'B', 'C', 'D']
   background: none;
   border: 1px solid var(--ansi-red);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12.5px;
   padding: 2px 8px;
   border-radius: var(--radius-sm);
   margin-top: var(--space-2);
@@ -344,7 +344,7 @@ const optionLabels = ['A', 'B', 'C', 'D']
   text-align: center;
   cursor: pointer;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 12.5px;
   color: var(--color-muted);
   width: 100%;
   transition: border-color var(--transition-fast), background var(--transition-fast);
@@ -410,7 +410,7 @@ const optionLabels = ['A', 'B', 'C', 'D']
 }
 
 .correct-badge {
-  font-size: 11px;
+  font-size: 12.5px;
   flex-shrink: 0;
   align-self: center;
   font-weight: 700;

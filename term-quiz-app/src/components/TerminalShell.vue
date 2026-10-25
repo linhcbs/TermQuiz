@@ -177,17 +177,17 @@ onUnmounted(() => {
   letter-spacing: 0.5px;
 }
 
-.title-sep { font-size: 11px; }
+.title-sep { font-size: 12.5px; }
 
 .title-path {
-  font-size: 12px;
+  font-size: 12.5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .titlebar-right {
-  font-size: 11px;
+  font-size: 12.5px;
   flex-shrink: 0;
 }
 
@@ -213,7 +213,7 @@ onUnmounted(() => {
 .sidebar-section { flex: 1; }
 
 .sidebar-label {
-  font-size: 10px;
+  font-size: 12.5px;
   letter-spacing: 1.5px;
   padding: var(--space-2) var(--space-5);
   margin-bottom: var(--space-2);
@@ -257,7 +257,7 @@ onUnmounted(() => {
 .sidebar-footer {
   padding: var(--space-4) var(--space-5);
   border-top: 1px solid var(--border-dim);
-  font-size: 11px;
+  font-size: 12.5px;
 }
 
 .storage-status {

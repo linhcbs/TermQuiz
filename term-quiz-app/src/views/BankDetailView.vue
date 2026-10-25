@@ -313,7 +313,7 @@ const optionLabels = ['A', 'B', 'C', 'D']
   background: none;
   border: none;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 12.5px;
   cursor: pointer;
   transition: color var(--transition-fast);
   padding: 0;
@@ -349,7 +349,7 @@ const optionLabels = ['A', 'B', 'C', 'D']
   flex-wrap: wrap;
 }
 
-.bank-meta-info { font-size: 12px; display: flex; gap: var(--space-2); flex: 1; }
+.bank-meta-info { font-size: 12.5px; display: flex; gap: var(--space-2); flex: 1; }
 
 /* Meta form */
 .meta-form {
@@ -362,8 +362,8 @@ const optionLabels = ['A', 'B', 'C', 'D']
   padding: var(--space-5);
 }
 .meta-field { display: flex; flex-direction: column; gap: var(--space-2); }
-.meta-label { font-size: 12px; }
-.meta-error { font-size: 12px; }
+.meta-label { font-size: 12.5px; }
+.meta-error { font-size: 12.5px; }
 .meta-actions { display: flex; gap: var(--space-3); justify-content: flex-end; }
 
 /* Editor panel */
@@ -385,7 +385,7 @@ const optionLabels = ['A', 'B', 'C', 'D']
   justify-content: space-between;
 }
 .section-title {
-  font-size: 11px;
+  font-size: 12.5px;
   letter-spacing: 1px;
   display: flex;
   gap: var(--space-2);
@@ -413,7 +413,7 @@ const optionLabels = ['A', 'B', 'C', 'D']
 .question-card:hover { border-color: var(--border-bright); }
 
 .question-card-num {
-  font-size: 12px;
+  font-size: 12.5px;
   min-width: 24px;
   padding-top: 2px;
 }
@@ -437,7 +437,7 @@ const optionLabels = ['A', 'B', 'C', 'D']
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 11px;
+  font-size: 12.5px;
   padding: 2px 8px;
   background: var(--bg-input);
   border: 1px solid var(--border-dim);
@@ -451,11 +451,11 @@ const optionLabels = ['A', 'B', 'C', 'D']
 }
 .chip-letter {
   font-weight: 700;
-  font-size: 10px;
+  font-size: 12.5px;
 }
 
 .question-card-explanation {
-  font-size: 12px;
+  font-size: 12.5px;
   line-height: 1.5;
   border-top: 1px solid var(--border-dim);
   padding-top: var(--space-2);
@@ -471,7 +471,7 @@ const optionLabels = ['A', 'B', 'C', 'D']
 /* Buttons */
 .btn {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 12.5px;
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-sm);
   border: 1px solid transparent;

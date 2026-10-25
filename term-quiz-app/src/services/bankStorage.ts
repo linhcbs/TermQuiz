@@ -93,3 +93,25 @@ export function isStorageAvailable(): boolean {
     return false
   }
 }
+
+import { DEMO_BANKS } from '../data/demoBanks'
+
+const INITIALIZED_KEY = 'termquiz_initialized_default'
+
+/** Automatically import demo banks as default settings for first-time users. */
+export function initializeDefaultBanks(): void {
+  if (!isStorageAvailable()) return
+  try {
+    const alreadyInitialized = localStorage.getItem(INITIALIZED_KEY)
+    if (alreadyInitialized) return
+
+    for (const demo of DEMO_BANKS) {
+      if (!bankExists(demo.id)) {
+        saveBank(demo)
+      }
+    }
+    localStorage.setItem(INITIALIZED_KEY, 'true')
+  } catch {
+    // ignore
+  }
+}

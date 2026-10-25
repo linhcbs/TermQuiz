@@ -235,18 +235,18 @@ function accuracyClass(pct: number): string {
   font-weight: 700;
   line-height: 1;
 }
-.stat-label { font-size: 11px; }
+.stat-label { font-size: 12.5px; }
 .stat-sep { opacity: 0.3; }
 
 /* ASCII rules */
 .ascii-rule {
-  font-size: 12px;
+  font-size: 12.5px;
   opacity: 0.25;
   overflow: hidden;
   white-space: nowrap;
 }
 .ascii-rule-thin {
-  font-size: 12px;
+  font-size: 12.5px;
   opacity: 0.2;
   overflow: hidden;
   white-space: nowrap;
@@ -256,7 +256,7 @@ function accuracyClass(pct: number): string {
 /* Sections */
 .section { display: flex; flex-direction: column; gap: var(--space-3); }
 .section-header {
-  font-size: 11px;
+  font-size: 12.5px;
   letter-spacing: 1px;
   display: flex;
   align-items: center;
@@ -300,13 +300,13 @@ function accuracyClass(pct: number): string {
 }
 .action-icon { font-size: 13px; font-weight: 700; }
 .action-label { font-size: 13px; font-weight: 700; color: var(--color-text); }
-.action-desc { font-size: 11px; }
+.action-desc { font-size: 12.5px; }
 
 /* History table — plain rows, no boxes */
 .history-table {
   display: flex;
   flex-direction: column;
-  font-size: 12px;
+  font-size: 12.5px;
 }
 .history-row {
   display: grid;
@@ -337,7 +337,7 @@ function accuracyClass(pct: number): string {
 /* Buttons */
 .btn-cli {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 12.5px;
   padding: 2px 10px;
   background: none;
   border: 1px solid var(--border-normal);

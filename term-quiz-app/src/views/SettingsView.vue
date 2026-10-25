@@ -200,7 +200,7 @@ function estimateStorageUsage(): string {
 }
 
 .section-title {
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--color-muted);
@@ -223,7 +223,7 @@ function estimateStorageUsage(): string {
 
 .setting-info { flex: 1; }
 .setting-name { font-size: 14px; font-weight: 500; color: var(--color-text); display: block; margin-bottom: var(--space-1); }
-.setting-desc { font-size: 12px; line-height: 1.5; }
+.setting-desc { font-size: 12.5px; line-height: 1.5; }
 
 /* Toggle */
 .toggle-btn {
@@ -234,7 +234,7 @@ function estimateStorageUsage(): string {
   border: none;
   cursor: pointer;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12.5px;
   color: var(--color-dim);
   flex-shrink: 0;
 }
@@ -289,13 +289,13 @@ function estimateStorageUsage(): string {
   align-items: center;
 }
 .info-row:last-child { border-bottom: none; }
-.info-label { min-width: 160px; flex-shrink: 0; font-size: 12px; }
+.info-label { min-width: 160px; flex-shrink: 0; font-size: 12.5px; }
 
 /* Storage notice */
 .storage-notice {
   display: flex;
   gap: var(--space-3);
-  font-size: 12px;
+  font-size: 12.5px;
   line-height: 1.6;
   padding: var(--space-4);
   background: rgba(241,250,140,0.04);
@@ -327,7 +327,7 @@ kbd {
   border-radius: var(--radius-sm);
   padding: 2px 6px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12.5px;
   color: var(--ansi-cyan);
 }
 .text-orange { color: var(--ansi-orange); }

@@ -84,7 +84,7 @@ watch(entries, async () => {
   padding: var(--space-2) var(--space-4);
   cursor: pointer;
   user-select: none;
-  font-size: 11px;
+  font-size: 12.5px;
   letter-spacing: 0.5px;
 }
 .log-header:hover { background: var(--bg-panel-hover); }
@@ -93,17 +93,17 @@ watch(entries, async () => {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  font-size: 10px;
+  font-size: 12.5px;
   letter-spacing: 1px;
   color: var(--color-muted);
 }
 
-.log-count { margin-left: auto; font-size: 11px; }
+.log-count { margin-left: auto; font-size: 12.5px; }
 
 .log-clear {
   background: none;
   border: none;
-  font-size: 10px;
+  font-size: 12.5px;
   padding: 2px 6px;
   font-family: var(--font-mono);
   border: 1px solid var(--border-dim);
@@ -112,7 +112,7 @@ watch(entries, async () => {
 }
 .log-clear:hover { color: var(--ansi-red); border-color: var(--ansi-red); }
 
-.log-toggle { font-size: 10px; }
+.log-toggle { font-size: 12.5px; }
 
 .log-body {
   height: var(--log-height);
@@ -124,7 +124,7 @@ watch(entries, async () => {
 }
 
 .log-empty {
-  font-size: 12px;
+  font-size: 12.5px;
   text-align: center;
   padding: var(--space-4);
   font-style: italic;
@@ -133,20 +133,20 @@ watch(entries, async () => {
 .log-entry {
   display: flex;
   gap: var(--space-3);
-  font-size: 12px;
+  font-size: 12.5px;
   line-height: 1.4;
   align-items: baseline;
 }
 
 .log-time {
   flex-shrink: 0;
-  font-size: 11px;
+  font-size: 12.5px;
   min-width: 60px;
 }
 
 .log-level {
   flex-shrink: 0;
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 700;
   min-width: 54px;
 }

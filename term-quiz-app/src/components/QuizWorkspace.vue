@@ -369,7 +369,7 @@ function optionGlyph(optId: string, _index?: number): string {
   background: none;
   border: none;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 12.5px;
   padding: 0;
   cursor: pointer;
   color: var(--color-dim);
@@ -380,14 +380,14 @@ function optionGlyph(optId: string, _index?: number): string {
 /* ── Progress ──────────────────────────────────────────────── */
 .progress-line {
   padding: 0 var(--space-6) var(--space-1);
-  font-size: 12px;
+  font-size: 12.5px;
   letter-spacing: -0.3px;
   flex-shrink: 0;
 }
 
 /* ── ASCII rule ────────────────────────────────────────────── */
 .ascii-rule {
-  font-size: 12px;
+  font-size: 12.5px;
   padding: 0 var(--space-6);
   flex-shrink: 0;
   opacity: 0.25;
@@ -544,7 +544,7 @@ function optionGlyph(optId: string, _index?: number): string {
   justify-content: space-between;
   padding: var(--space-3) var(--space-6);
   flex-shrink: 0;
-  font-size: 12px;
+  font-size: 12.5px;
 }
 
 .keyboard-hints { color: var(--color-dim); }

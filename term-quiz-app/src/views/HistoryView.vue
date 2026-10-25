@@ -136,13 +136,13 @@ function accuracyClass(pct: number): string {
 
 /* ASCII rules */
 .ascii-rule {
-  font-size: 12px;
+  font-size: 12.5px;
   opacity: 0.25;
   overflow: hidden;
   white-space: nowrap;
 }
 .ascii-rule-thin {
-  font-size: 12px;
+  font-size: 12.5px;
   opacity: 0.2;
   overflow: hidden;
   white-space: nowrap;
@@ -164,7 +164,7 @@ function accuracyClass(pct: number): string {
   display: flex;
   flex-direction: column;
   gap: 1px;
-  font-size: 12px;
+  font-size: 12.5px;
 }
 
 .row-head,
@@ -201,7 +201,7 @@ function accuracyClass(pct: number): string {
 /* Buttons */
 .btn-cli {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 12.5px;
   padding: 2px 8px;
   background: none;
   border: 1px solid var(--border-normal);

@@ -353,7 +353,7 @@ function loadDemoBanks() {
   align-items: center;
 }
 .count-badge {
-  font-size: 12px;
+  font-size: 12.5px;
   background: var(--bg-panel);
   border: 1px solid var(--border-dim);
   border-radius: var(--radius-sm);
@@ -385,7 +385,7 @@ function loadDemoBanks() {
   background: none;
   border: none;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 12.5px;
   cursor: pointer;
   align-self: flex-start;
 }
@@ -409,7 +409,7 @@ function loadDemoBanks() {
   color: var(--color-text);
 }
 .preview-details { font-size: 14px; }
-.preview-warnings { display: flex; flex-direction: column; gap: var(--space-1); font-size: 12px; }
+.preview-warnings { display: flex; flex-direction: column; gap: var(--space-1); font-size: 12.5px; }
 .preview-actions { display: flex; gap: var(--space-3); }
 
 /* Banks list */
@@ -452,13 +452,13 @@ function loadDemoBanks() {
 }
 .bank-desc { font-size: 13px; }
 .bank-meta {
-  font-size: 11px;
+  font-size: 12.5px;
   display: flex;
   gap: var(--space-2);
   align-items: center;
   flex-wrap: wrap;
 }
-.bank-id { opacity: 0.85; font-size: 10px; }
+.bank-id { opacity: 0.85; font-size: 12.5px; }
 
 .bank-actions {
   display: flex;
@@ -483,7 +483,7 @@ function loadDemoBanks() {
 /* Buttons */
 .btn {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 12.5px;
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
