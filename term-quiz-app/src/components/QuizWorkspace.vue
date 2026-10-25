@@ -311,13 +311,13 @@ function optionGlyph(optId: string, _index?: number): string {
     <!-- Action bar -->
     <div class="quiz-actions">
       <div class="keyboard-hints text-dim">
-        <span><span class="text-cyan">1–4</span>/<span class="text-cyan">A–D</span> chọn</span>
+        <span><span class="text-cyan">1–4</span>/<span class="text-cyan">A–D</span> select</span>
         <span> · </span>
-        <span><span class="text-cyan">↑↓</span> di chuyển</span>
+        <span><span class="text-cyan">↑↓</span> navigate</span>
         <span> · </span>
-        <span><span class="text-cyan">Space</span> chọn</span>
+        <span><span class="text-cyan">Space</span> toggle</span>
         <span> · </span>
-        <span><span class="text-cyan">Enter</span> {{ active.submitted ? 'tiếp tục' : 'xác nhận' }}</span>
+        <span><span class="text-cyan">Enter</span> {{ active.submitted ? 'continue' : 'confirm' }}</span>
       </div>
 
       <div class="action-buttons">
