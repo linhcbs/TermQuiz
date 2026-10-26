@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // QuestionBanksView — List, create, edit, delete, import/export question banks
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import type { QuestionBank } from '../types'
 import { listBanks, saveBank, deleteBank, bankExists } from '../services/bankStorage'
@@ -52,6 +52,240 @@ const filtered = computed(() => {
   return result
 })
 
+// ─── Keyboard Navigation ──────────────────────────────────────
+
+const toolbarIds = [
+  'search-banks',
+  'sort-banks',
+  'btn-load-demo',
+  'btn-guide',
+  'btn-import-bank',
+  'btn-create-bank',
+]
+
+function getBankActionIds(bankId: string) {
+  return [
+    `btn-practice-${bankId}`,
+    `btn-view-${bankId}`,
+    `btn-export-${bankId}`,
+    `btn-dup-${bankId}`,
+    `btn-delete-${bankId}`,
+  ]
+}
+
+function getAllInteractiveElements(): HTMLElement[] {
+  const list: HTMLElement[] = []
+  for (const id of toolbarIds) {
+    const el = document.getElementById(id)
+    if (el) list.push(el)
+  }
+  if (filtered.value.length > 0) {
+    for (const b of filtered.value) {
+      for (const id of getBankActionIds(b.id)) {
+        const el = document.getElementById(id) as HTMLButtonElement | null
+        if (el && !el.disabled) list.push(el)
+      }
+    }
+  } else {
+    const btnNew = document.getElementById('banks-cta-new')
+    if (btnNew) list.push(btnNew)
+    const btnDemo = document.getElementById('banks-cta-demo')
+    if (btnDemo) list.push(btnDemo)
+  }
+  return list
+}
+
+function focusElement(el: HTMLElement | null) {
+  if (!el) return false
+  el.focus()
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+  return true
+}
+
+function getBankActionEl(bankIndex: number, colIndex: number): HTMLElement | null {
+  if (bankIndex < 0 || bankIndex >= filtered.value.length) return null
+  const b = filtered.value[bankIndex]
+  const colIds = getBankActionIds(b.id)
+  const clampedCol = Math.max(0, Math.min(colIndex, colIds.length - 1))
+  let el = document.getElementById(colIds[clampedCol]) as HTMLButtonElement | null
+  if (el && el.disabled) {
+    for (let offset = 1; offset < colIds.length; offset++) {
+      const nextCol = (clampedCol + offset) % colIds.length
+      const nextEl = document.getElementById(colIds[nextCol]) as HTMLButtonElement | null
+      if (nextEl && !nextEl.disabled) {
+        el = nextEl
+        break
+      }
+    }
+  }
+  return el
+}
+
+function handleKeyNavigation(e: KeyboardEvent) {
+  if (deleteTarget.value || importPreview.value) return
+
+  const navKeys = ['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', 'Tab', 'Enter']
+  if (!navKeys.includes(e.key)) return
+
+  const active = document.activeElement as HTMLElement | null
+  const toolbarCol = toolbarIds.findIndex((id) => active?.id === id)
+
+  let bankRow = -1
+  let bankCol = -1
+  if (toolbarCol === -1 && filtered.value.length > 0) {
+    for (let i = 0; i < filtered.value.length; i++) {
+      const b = filtered.value[i]
+      const colIds = getBankActionIds(b.id)
+      const c = colIds.findIndex((id) => active?.id === id)
+      if (c !== -1) {
+        bankRow = i + 1
+        bankCol = c
+        break
+      }
+    }
+  }
+
+  let emptyCol = -1
+  if (toolbarCol === -1 && bankRow === -1) {
+    if (active?.id === 'banks-cta-new') emptyCol = 0
+    else if (active?.id === 'banks-cta-demo') emptyCol = 1
+  }
+
+  const isInside = toolbarCol !== -1 || bankRow !== -1 || emptyCol !== -1
+
+  if (!isInside) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'Tab') {
+      e.preventDefault()
+      focusElement(document.getElementById(toolbarIds[0]))
+    }
+    return
+  }
+
+  if (e.key === 'Enter') {
+    if (active && active.tagName === 'BUTTON') {
+      e.preventDefault()
+      active.click()
+    }
+    return
+  }
+
+  if (e.key === 'Tab') {
+    const all = getAllInteractiveElements()
+    if (all.length === 0) return
+    const curIdx = all.indexOf(active!)
+    e.preventDefault()
+    if (e.shiftKey) {
+      const prevIdx = curIdx <= 0 ? all.length - 1 : curIdx - 1
+      focusElement(all[prevIdx])
+    } else {
+      const nextIdx = (curIdx + 1) % all.length
+      focusElement(all[nextIdx])
+    }
+    return
+  }
+
+  // Toolbar navigation
+  if (toolbarCol !== -1) {
+    if (e.key === 'ArrowRight') {
+      if (toolbarCol === 0) {
+        const input = active as HTMLInputElement
+        const atEnd = !input.value || (input.selectionStart === input.value.length && input.selectionEnd === input.value.length)
+        if (!atEnd) return
+      }
+      e.preventDefault()
+      const nextCol = (toolbarCol + 1) % toolbarIds.length
+      focusElement(document.getElementById(toolbarIds[nextCol]))
+      return
+    }
+
+    if (e.key === 'ArrowLeft') {
+      if (toolbarCol === 0) {
+        const input = active as HTMLInputElement
+        const atStart = !input.value || (input.selectionStart === 0 && input.selectionEnd === 0)
+        if (!atStart) return
+      }
+      e.preventDefault()
+      const prevCol = (toolbarCol - 1 + toolbarIds.length) % toolbarIds.length
+      focusElement(document.getElementById(toolbarIds[prevCol]))
+      return
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      if (filtered.value.length > 0) {
+        const targetCol = Math.min(toolbarCol, 4)
+        focusElement(getBankActionEl(0, targetCol))
+      } else {
+        focusElement(document.getElementById('banks-cta-new') || document.getElementById('banks-cta-demo'))
+      }
+      return
+    }
+
+    if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      if (filtered.value.length > 0) {
+        const targetCol = Math.min(toolbarCol, 4)
+        focusElement(getBankActionEl(filtered.value.length - 1, targetCol))
+      }
+      return
+    }
+  }
+
+  // Bank row navigation
+  if (bankRow !== -1) {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault()
+      const nextCol = (bankCol + 1) % 5
+      focusElement(getBankActionEl(bankRow - 1, nextCol))
+      return
+    }
+
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      const prevCol = (bankCol - 1 + 5) % 5
+      focusElement(getBankActionEl(bankRow - 1, prevCol))
+      return
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      if (bankRow < filtered.value.length) {
+        focusElement(getBankActionEl(bankRow, bankCol))
+      } else {
+        const targetCol = Math.min(bankCol, toolbarIds.length - 1)
+        focusElement(document.getElementById(toolbarIds[targetCol]))
+      }
+      return
+    }
+
+    if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      if (bankRow > 1) {
+        focusElement(getBankActionEl(bankRow - 2, bankCol))
+      } else {
+        const targetCol = Math.min(bankCol, toolbarIds.length - 1)
+        focusElement(document.getElementById(toolbarIds[targetCol]))
+      }
+      return
+    }
+  }
+
+  // Empty state CTA navigation
+  if (emptyCol !== -1) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      e.preventDefault()
+      const otherId = active?.id === 'banks-cta-new' ? 'banks-cta-demo' : 'banks-cta-new'
+      focusElement(document.getElementById(otherId))
+      return
+    }
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+      e.preventDefault()
+      focusElement(document.getElementById(toolbarIds[0]))
+      return
+    }
+  }
+}
+
 // ─── Lifecycle ────────────────────────────────────────────────
 
 function refresh() {
@@ -61,11 +295,16 @@ function refresh() {
 onMounted(() => {
   refresh()
   info('Loaded question banks.')
+  window.addEventListener('keydown', handleKeyNavigation)
   // Handle ?action=import from dashboard
   if (route.query.action === 'import') {
     triggerImport()
     router.replace('/banks')
   }
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyNavigation)
 })
 
 // ─── Import ───────────────────────────────────────────────────
@@ -287,7 +526,7 @@ function loadDemoBanks() {
             <button :id="`btn-view-${bank.id}`" class="btn btn-secondary" @click="router.push(`/banks/${bank.id}`)">view</button>
             <button :id="`btn-export-${bank.id}`" class="btn btn-ghost" @click="exportBank(bank)" title="Export as JSON">↓ export</button>
             <button :id="`btn-dup-${bank.id}`" class="btn btn-ghost" @click="duplicateBank(bank)" title="Duplicate bank">duplicate</button>
-            <button :id="`btn-delete-${bank.id}`" class="btn btn-ghost btn-danger-ghost" @click="deleteTarget = bank" title="Delete bank">✕</button>
+            <button :id="`btn-delete-${bank.id}`" class="btn btn-ghost btn-danger-ghost btn-delete" @click="deleteTarget = bank" title="Delete bank">✕</button>
           </div>
         </div>
       </div>
@@ -512,4 +751,55 @@ function loadDemoBanks() {
 }
 .btn-ghost:hover { color: var(--color-muted); border-color: var(--border-dim); }
 .btn-danger-ghost:hover { color: var(--ansi-red) !important; border-color: var(--ansi-red) !important; }
+
+.btn:focus,
+.btn:focus-visible {
+  outline: 2px solid var(--ansi-cyan);
+  outline-offset: 2px;
+}
+
+.search-input:focus,
+.search-input:focus-visible,
+.sort-select:focus,
+.sort-select:focus-visible {
+  outline: 2px solid var(--ansi-cyan);
+  outline-offset: 2px;
+  border-color: var(--ansi-cyan);
+}
+
+/* ── Responsive adjustments for mobile ──────────────────────── */
+@media (max-width: 640px) {
+  .banks-view {
+    padding: var(--space-4) var(--space-3);
+    gap: var(--space-4);
+  }
+
+  .toolbar-right {
+    width: 100%;
+    gap: var(--space-2);
+  }
+
+  .search-input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .bank-main {
+    padding: var(--space-4) var(--space-3);
+    gap: var(--space-3);
+  }
+
+  .bank-actions {
+    width: 100%;
+    gap: var(--space-2);
+  }
+
+  /* Center delete button when it wraps alone onto a new row */
+  .bank-actions .btn-delete {
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 44px;
+    text-align: center;
+  }
+}
 </style>

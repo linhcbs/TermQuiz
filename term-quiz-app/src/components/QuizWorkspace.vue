@@ -143,6 +143,13 @@ function onKeydown(e: KeyboardEvent) {
     }
   }
 
+  // Escape or X: exit session
+  if (e.key === 'Escape' || e.key.toLowerCase() === 'x' || e.code === 'KeyX') {
+    e.preventDefault()
+    emit('exit')
+    return
+  }
+
   let selectedIdx = -1
 
   // 1–4 keys: standard number row, numpad, or event codes
@@ -226,11 +233,11 @@ function optionGlyph(optId: string, _index?: number): string {
     <div class="quiz-header">
       <span class="text-cyan hdr-q">Q{{ active.currentIndex + 1 }}/{{ active.session.totalQuestions }}</span>
       <span class="text-dim hdr-sep">|</span>
-      <span class="text-dim">{{ active.session.bankTitle }}</span>
+      <span class="text-dim hdr-bank-title">{{ active.session.bankTitle }}</span>
       <span class="text-dim hdr-sep">|</span>
-      <span class="text-dim">{{ active.session.attempts.filter(a => a.result === 'correct').length }} correct</span>
+      <span class="text-dim hdr-correct-count">{{ active.session.attempts.filter(a => a.result === 'correct').length }} correct</span>
       <span class="hdr-flex"></span>
-      <button id="quiz-exit" class="btn-exit text-dim" @click="emit('exit')" title="Exit session">[x exit]</button>
+      <button id="quiz-exit" class="btn-exit text-dim" @click="emit('exit')" title="Exit session (x or Esc)">[x exit]</button>
     </div>
 
     <!-- ASCII progress bar -->
@@ -303,7 +310,7 @@ function optionGlyph(optId: string, _index?: number): string {
       </div>
 
       <div v-if="question?.explanation" class="explanation">
-        <span class="explanation-label text-cyan">// </span>
+        <span class="explanation-label text-cyan">// </span> 
         <span class="explanation-text">{{ question?.explanation }}</span>
       </div>
     </div>
@@ -535,7 +542,7 @@ function optionGlyph(optId: string, _index?: number): string {
   line-height: 1.6;
 }
 .explanation-label { flex-shrink: 0; }
-.explanation-text  { color: var(--color-text); }
+.explanation-text  { color: var(--color-text); margin-left: 5px;}
 
 /* ── Action bar ────────────────────────────────────────────── */
 .quiz-actions {
@@ -575,6 +582,130 @@ function optionGlyph(optId: string, _index?: number): string {
 .btn-cli:disabled {
   opacity: 0.3;
   cursor: default;
+}
+
+/* ── Responsive adjustments for mobile ──────────────────────── */
+@media (max-width: 640px) {
+  /* Hide keyboard hints on mobile devices */
+  .keyboard-hints {
+    display: none !important;
+  }
+
+  .quiz-header {
+    padding: var(--space-2) var(--space-3);
+    font-size: 11.5px;
+    gap: var(--space-2);
+  }
+
+  .hdr-bank-title {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .progress-line {
+    padding: 0 var(--space-3) var(--space-1);
+    font-size: 11px;
+    overflow-x: hidden;
+    white-space: nowrap;
+  }
+
+  .ascii-rule {
+    padding: 0 var(--space-3);
+    font-size: 10.5px;
+  }
+
+  .question-body {
+    padding: var(--space-3) var(--space-3);
+    gap: var(--space-3);
+  }
+
+  .question-prompt {
+    gap: var(--space-2);
+  }
+
+  .prompt-symbol {
+    font-size: 12px;
+    margin-top: 2px;
+  }
+
+  /* Smaller question text on mobile */
+  .question-text {
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+
+  .options-list {
+    gap: 3px;
+  }
+
+  /* Smaller option text on mobile with comfortable touch target */
+  .option-row {
+    font-size: 12.5px;
+    padding: 7px 6px;
+    min-height: 36px;
+    gap: var(--space-2);
+  }
+
+  .opt-glyph {
+    font-size: 11.5px;
+    min-width: 2.6ch;
+  }
+
+  .opt-label {
+    font-size: 12px;
+    min-width: 2ch;
+  }
+
+  .feedback-area {
+    padding: var(--space-2) var(--space-3);
+    gap: var(--space-1);
+  }
+
+  .feedback-result {
+    font-size: 12.5px;
+    flex-wrap: wrap;
+  }
+
+  .feedback-correct-label {
+    font-size: 12px;
+  }
+
+  .explanation {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .quiz-actions {
+    padding: var(--space-2) var(--space-3);
+    justify-content: flex-end;
+  }
+
+  .action-buttons {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .btn-cli {
+    padding: 5px 14px;
+    font-size: 12.5px;
+  }
+}
+
+@media (max-width: 420px) {
+  .hdr-bank-title {
+    max-width: 85px;
+  }
+
+  .question-text {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .option-row {
+    font-size: 12px;
+  }
 }
 </style>
 

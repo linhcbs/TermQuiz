@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // ConfirmDialog — Modal confirmation dialog
 // Used for destructive actions (delete, navigate away from quiz, etc.)
+import { computed, onMounted, onUnmounted } from 'vue'
 
 interface Props {
   title?: string
@@ -8,6 +9,8 @@ interface Props {
   confirmLabel?: string
   cancelLabel?: string
   danger?: boolean
+  confirmHotkey?: string
+  cancelHotkey?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -15,12 +18,71 @@ const props = withDefaults(defineProps<Props>(), {
   confirmLabel: 'Confirm',
   cancelLabel: 'Cancel',
   danger: false,
+  confirmHotkey: '',
+  cancelHotkey: '',
 })
 
 const emit = defineEmits<{
   confirm: []
   cancel: []
 }>()
+
+function formatLabelWithHotkey(label: string, hotkey?: string) {
+  if (!hotkey) return { before: label, key: '', after: '' }
+  const idx = label.toLowerCase().indexOf(hotkey.toLowerCase())
+  if (idx === -1) return { before: label, key: '', after: '' }
+  return {
+    before: label.slice(0, idx),
+    key: label.slice(idx, idx + 1),
+    after: label.slice(idx + 1),
+  }
+}
+
+const cancelParts = computed(() => formatLabelWithHotkey(props.cancelLabel, props.cancelHotkey))
+const confirmParts = computed(() => formatLabelWithHotkey(props.confirmLabel, props.confirmHotkey))
+
+function onKeyDown(e: KeyboardEvent) {
+  const target = e.target as HTMLElement | null
+  const isInput = target?.tagName === 'INPUT' || target?.tagName === 'TEXTAREA'
+
+  if (e.key === 'Escape') {
+    e.preventDefault()
+    e.stopPropagation()
+    emit('cancel')
+    return
+  }
+
+  if (e.key === 'Enter' && !isInput) {
+    e.preventDefault()
+    e.stopPropagation()
+    emit('confirm')
+    return
+  }
+
+  const pressed = e.key.toLowerCase()
+
+  if (props.cancelHotkey && pressed === props.cancelHotkey.toLowerCase()) {
+    e.preventDefault()
+    e.stopPropagation()
+    emit('cancel')
+    return
+  }
+
+  if (props.confirmHotkey && pressed === props.confirmHotkey.toLowerCase()) {
+    e.preventDefault()
+    e.stopPropagation()
+    emit('confirm')
+    return
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', onKeyDown, { capture: true })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', onKeyDown, { capture: true })
+})
 </script>
 
 <template>
@@ -34,7 +96,12 @@ const emit = defineEmits<{
         <p class="dialog-message">{{ props.message }}</p>
         <div class="dialog-actions">
           <button id="dialog-cancel" class="btn btn-secondary" @click="emit('cancel')">
-            {{ props.cancelLabel }}
+            <template v-if="cancelParts.key">
+              {{ cancelParts.before }}<u class="hotkey-underline">{{ cancelParts.key }}</u>{{ cancelParts.after }}
+            </template>
+            <template v-else>
+              {{ props.cancelLabel }}
+            </template>
           </button>
           <button
             id="dialog-confirm"
@@ -42,7 +109,12 @@ const emit = defineEmits<{
             :class="props.danger ? 'btn-danger' : 'btn-primary'"
             @click="emit('confirm')"
           >
-            {{ props.confirmLabel }}
+            <template v-if="confirmParts.key">
+              {{ confirmParts.before }}<u class="hotkey-underline">{{ confirmParts.key }}</u>{{ confirmParts.after }}
+            </template>
+            <template v-else>
+              {{ props.confirmLabel }}
+            </template>
           </button>
         </div>
       </div>
@@ -146,4 +218,11 @@ const emit = defineEmits<{
   border-color: var(--ansi-red);
 }
 .btn-danger:hover { background: #ff7777; }
+
+.hotkey-underline {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+  font-weight: 700;
+}
 </style>

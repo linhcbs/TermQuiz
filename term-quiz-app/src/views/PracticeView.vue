@@ -56,9 +56,11 @@ onMounted(() => {
   info(`Practice session: ${b.title}`)
 })
 
+let allowRouteLeave = false
+
 // Warn before navigating away from active quiz
 onBeforeRouteLeave(async (_to, _from) => {
-  if (phase.value !== 'quiz') return true
+  if (phase.value !== 'quiz' || allowRouteLeave) return true
 
   return new Promise<boolean>((resolve) => {
     showExitDialog.value = true
@@ -68,9 +70,12 @@ onBeforeRouteLeave(async (_to, _from) => {
 
 function handleExitConfirm() {
   showExitDialog.value = false
+  allowRouteLeave = true
   if (pendingNavigationResolve) {
     pendingNavigationResolve(true)
     pendingNavigationResolve = null
+  } else {
+    router.push('/banks')
   }
   warn('Practice session cancelled.')
 }
@@ -92,8 +97,7 @@ function onComplete(session: QuizSession) {
 }
 
 function onExit() {
-  // This triggers the navigation guard above
-  router.push('/banks')
+  showExitDialog.value = true
 }
 
 function onRestart() {
@@ -147,6 +151,9 @@ onUnmounted(() => {
       title="Exit Session"
       message="Are you sure you want to exit? Your progress in this session will be lost."
       confirm-label="Exit"
+      cancel-label="Cancel"
+      confirm-hotkey="e"
+      cancel-hotkey="c"
       :danger="true"
       @confirm="handleExitConfirm"
       @cancel="handleExitCancel"

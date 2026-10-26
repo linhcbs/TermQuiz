@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // BankDetailView — View a single bank, add/edit/delete questions
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { QuestionBank, Question } from '../types'
 import { SCHEMA_VERSION } from '../types'
@@ -123,9 +123,15 @@ function openNewQuestion() {
   showEditor.value = true
 }
 
-function openEditQuestion(q: Question) {
+async function openEditQuestion(q: Question) {
   editingQuestion.value = q
   showEditor.value = true
+  await nextTick()
+  const idx = bank.value?.questions.findIndex((x) => x.id === q.id) ?? -1
+  if (idx !== -1) {
+    const el = document.getElementById(`editor-q-${idx}`)
+    el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+  }
 }
 
 function onSaveQuestion(q: Question) {
@@ -223,15 +229,6 @@ const optionLabels = ['A', 'B', 'C', 'D']
       </div>
     </div>
 
-    <!-- Question editor (inline) -->
-    <div v-if="showEditor" class="editor-panel">
-      <QuestionEditor
-        :question="editingQuestion"
-        @save="onSaveQuestion"
-        @cancel="showEditor = false; editingQuestion = null"
-      />
-    </div>
-
     <!-- Questions section -->
     <div class="questions-section">
       <div class="section-toolbar">
@@ -249,6 +246,15 @@ const optionLabels = ['A', 'B', 'C', 'D']
         </button>
       </div>
 
+      <!-- New question editor -->
+      <div v-if="showEditor && !editingQuestion" class="editor-panel new-question-editor">
+        <QuestionEditor
+          :question="null"
+          @save="onSaveQuestion"
+          @cancel="showEditor = false; editingQuestion = null"
+        />
+      </div>
+
       <!-- Empty questions -->
       <div v-if="bank.questions.length === 0 && !showEditor" class="empty-questions">
         <span class="text-dim">No questions yet. Click "+ add question" to create the first one.</span>
@@ -256,35 +262,50 @@ const optionLabels = ['A', 'B', 'C', 'D']
 
       <!-- Question list -->
       <div class="question-list" role="list" aria-label="Questions in this bank">
-        <div
-          v-for="(q, i) in bank.questions"
-          :key="q.id"
-          class="question-card"
-          role="listitem"
-        >
-          <div class="question-card-num text-dim">{{ i + 1 }}</div>
-          <div class="question-card-content">
-            <p class="question-card-text">{{ q.text }}</p>
-            <div class="question-card-options">
-              <span
-                v-for="(opt, j) in q.options"
-                :key="opt.id"
-                class="option-chip"
-                :class="{ correct: opt.id === q.correctOptionId }"
-              >
-                <span class="chip-letter">{{ optionLabels[j] }}</span>
-                {{ opt.text }}
-              </span>
+        <template v-for="(q, i) in bank.questions" :key="q.id">
+          <!-- Inline editor for this question -->
+          <div
+            v-if="showEditor && editingQuestion?.id === q.id"
+            :id="`editor-q-${i}`"
+            class="editor-panel inline-editor"
+          >
+            <QuestionEditor
+              :question="editingQuestion"
+              @save="onSaveQuestion"
+              @cancel="showEditor = false; editingQuestion = null"
+            />
+          </div>
+
+          <!-- Question card when not editing -->
+          <div
+            v-else
+            class="question-card"
+            role="listitem"
+          >
+            <div class="question-card-num text-dim">{{ i + 1 }}</div>
+            <div class="question-card-content">
+              <p class="question-card-text">{{ q.text }}</p>
+              <div class="question-card-options">
+                <span
+                  v-for="(opt, j) in q.options"
+                  :key="opt.id"
+                  class="option-chip"
+                  :class="{ correct: opt.id === q.correctOptionId }"
+                >
+                  <span class="chip-letter">{{ optionLabels[j] }}</span>
+                  {{ opt.text }}
+                </span>
+              </div>
+              <div v-if="q.explanation" class="question-card-explanation text-dim">
+                <span class="text-cyan">Exp:</span> {{ q.explanation }}
+              </div>
             </div>
-            <div v-if="q.explanation" class="question-card-explanation text-dim">
-              <span class="text-cyan">Exp:</span> {{ q.explanation }}
+            <div class="question-card-actions">
+              <button :id="`btn-edit-q-${i}`" class="btn btn-ghost" @click="openEditQuestion(q)">✎ edit</button>
+              <button :id="`btn-del-q-${i}`" class="btn btn-ghost btn-danger-ghost" @click="deleteQuestionTarget = q">✕</button>
             </div>
           </div>
-          <div class="question-card-actions">
-            <button :id="`btn-edit-q-${i}`" class="btn btn-ghost" @click="openEditQuestion(q)">✎ edit</button>
-            <button :id="`btn-del-q-${i}`" class="btn btn-ghost btn-danger-ghost" @click="deleteQuestionTarget = q">✕</button>
-          </div>
-        </div>
+        </template>
       </div>
     </div>
 

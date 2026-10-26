@@ -363,4 +363,33 @@ function accuracyClass(pct: number): string {
   border-color: var(--border-normal);
 }
 .btn-secondary:hover { color: var(--color-text); border-color: var(--border-bright); }
+
+@media (max-width: 640px) {
+  .summary {
+    padding: var(--space-4) var(--space-3);
+    gap: var(--space-4);
+  }
+  .score-card {
+    padding: var(--space-4);
+    gap: var(--space-3);
+  }
+  .score-grid {
+    gap: var(--space-4);
+  }
+  .score-value {
+    font-size: 24px;
+  }
+  .summary-title {
+    font-size: 16px;
+  }
+  .summary-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .summary-actions .btn {
+    width: 100%;
+    text-align: center;
+    padding: var(--space-3);
+  }
+}
 </style>

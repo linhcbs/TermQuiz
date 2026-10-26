@@ -151,26 +151,25 @@ function estimateStorageUsage(): string {
       <h2 id="section-about" class="section-title">
         <span class="text-cyan">//</span> about
       </h2>
-      <div class="info-grid">
+      <div class="info-grid about-grid">
         <div class="info-row">
           <span class="info-label text-dim">Application</span>
-          <span class="text-green">TermQuiz v1.0.0</span>
+          <span class="info-value text-green">TermQuiz v1.0.0</span>
         </div>
         <div class="info-row">
           <span class="info-label text-dim">Schema version</span>
-          <span class="text-muted">1</span>
+          <span class="info-value text-muted">1</span>
         </div>
         <div class="info-row">
           <span class="info-label text-dim">Stack</span>
-          <span class="text-muted">Vue 3 + Vite + TypeScript</span>
+          <span class="info-value text-muted">Vue 3 + Vite + TypeScript</span>
         </div>
         <div class="info-row">
           <span class="info-label text-dim">Storage</span>
-          <span class="text-muted">localStorage (local-first, no cloud)</span>
+          <span class="info-value text-muted">localStorage (local-first, no cloud)</span>
         </div>
       </div>
     </section>
-
   </div>
 </template>
 
@@ -331,4 +330,44 @@ kbd {
   color: var(--ansi-cyan);
 }
 .text-orange { color: var(--ansi-orange); }
+
+/* ── Responsive adjustments for mobile ──────────────────────── */
+@media (max-width: 640px) {
+  .settings-view {
+    padding: var(--space-4) var(--space-3);
+    gap: var(--space-6);
+  }
+
+  .setting-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+  }
+
+  /* About table: 1 row label, 1 row content */
+  .about-grid .info-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .about-grid .info-label {
+    min-width: 0;
+    width: 100%;
+    font-size: 11.5px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--color-dim);
+  }
+
+  .about-grid .info-value {
+    width: 100%;
+    font-size: 13px;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+}
 </style>
