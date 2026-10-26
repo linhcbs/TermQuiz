@@ -323,8 +323,8 @@ function downloadSampleJson() {
 
 .guide-header {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
   gap: var(--space-4);
   flex-wrap: wrap;
 }
@@ -334,6 +334,41 @@ function downloadSampleJson() {
   flex-direction: column;
   gap: var(--space-2);
   flex: 1;
+}
+
+.view-credit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  margin-top: var(--space-1);
+  opacity: 0.7;
+}
+
+.credit-version {
+  font-family: var(--font-mono);
+  color: var(--color-cyan, #4ec9b0);
+}
+
+.credit-sep {
+  opacity: 0.5;
+}
+
+.credit-heart {
+  font-size: 12px;
+  line-height: 1;
+}
+
+.credit-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dashed currentColor;
+  transition: color 0.15s, opacity 0.15s;
+}
+
+.credit-link:hover {
+  color: var(--color-cyan, #4ec9b0);
+  opacity: 1;
 }
 
 .view-title {

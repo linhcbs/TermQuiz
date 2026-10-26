@@ -77,7 +77,16 @@ onUnmounted(() => {
         <span class="title-sep text-dim">—</span>
         <span class="title-path text-muted">student@termquiz:~/question-banks$</span>
       </div>
-      <div class="titlebar-right text-dim">v1.0.0</div>
+      <div class="titlebar-right text-dim">v1.0.0           
+          <span class="credit-sep">·</span>
+          built with <span class="credit-heart">❤️</span> by
+          <a
+            class="credit-link"
+            href="https://github.com/linhcbs"
+            target="_blank"
+            rel="noopener noreferrer"
+          >@linhcbs</a>
+      </div>
     </header>
 
     <div class="shell-body">
